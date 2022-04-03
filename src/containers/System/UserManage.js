@@ -46,46 +46,51 @@ class UserManage extends Component {
     let arrUsers = this.state.arrUsers;
     return (
       <div className="user-container">
-        <ModalUser isOpen={this.state.isOpenModalUser}
-        toggleFromParent={this.toggleUserModal}
-        test={"abc"} />
+        <ModalUser
+          isOpen={this.state.isOpenModalUser}
+          toggleFromParent={this.toggleUserModal}
+          test={"abc"}
+        />
+
         <div className="title text-center">Manage users</div>
         <div className="mx-1">
           <button className="btn btn-primary px-3" onClick={() => this.handleAddNewUser()}>
-            <i class="fas fa-user-plus"></i>
+            <i className="fas fa-user-plus"></i>
           </button>
         </div>
         <div className="user-table mt-3 mx-1">
           <table id="customers">
-            <tr>
-              <th>First name</th>
-              <th>Last name</th>
-              <th>Email</th>
-              <th>Address</th>
-              <th>Phone number</th>
-              <th>Actions</th>
-            </tr>
+            <tbody>
+              <tr className="custom-table">
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Phone number</th>
+                <th>Actions</th>
+              </tr>
 
-            {arrUsers &&
-              arrUsers.map((item, index) => {
-                return (
-                  <tr>
-                    <td>{item.email}</td>
-                    <td>{item.firstName}</td>
-                    <td>{item.lastName}</td>
-                    <td>{item.address}</td>
-                    <td>{item.phoneNumber}</td>
-                    <td>
-                      <button className="btn-edit">
-                        <i class="fas fa-edit"></i>
-                      </button>
-                      <button className="btn-delete">
-                        <i class="fas fa-trash-alt"></i>
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
+              {arrUsers &&
+                arrUsers.map((item, index) => {
+                  return (
+                    <tr>
+                      <td>{item.email}</td>
+                      <td>{item.firstName}</td>
+                      <td>{item.lastName}</td>
+                      <td>{item.address}</td>
+                      <td>{item.phoneNumber}</td>
+                      <td>
+                        <button className="btn-edit">
+                          <i className="fas fa-edit"></i>
+                        </button>
+                        <button className="btn-delete">
+                          <i className="fas fa-trash-alt"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
           </table>
         </div>
       </div>
