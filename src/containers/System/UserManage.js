@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./UserManage.scss";
-import { getAllUsers } from "../../services/userService";
+import { getAllUsers, createNewUserService } from "../../services/userService";
 import ModalUser from "./ModalUser";
 
 class UserManage extends Component {
@@ -14,13 +14,7 @@ class UserManage extends Component {
     };
   }
   async componentDidMount() {
-    let response = await getAllUsers("ALL");
-    console.log(response);
-    if (response && response.errCode === 0) {
-      this.setState({
-        arrUsers: response.users,
-      });
-    }
+    await this.getAllUsersFromReact();
   }
 
   handleAddNewUser = () => {
@@ -35,6 +29,33 @@ class UserManage extends Component {
     });
   };
 
+  getAllUsersFromReact = async () => {
+    let response = await getAllUsers("ALL");
+    console.log(response);
+    if (response && response.errCode === 0) {
+      this.setState({
+        arrUsers: response.users,
+      });
+    }
+  };
+
+  createNewUser = async (data) => {
+    try {
+      let response = await createNewUserService(data);
+      if (response && response.errCode !== 0) {
+        alert(response.errMessage);
+      } else {
+        await this.getAllUsersFromReact();
+        this.setState({
+          isOpenModalUser: false
+        })
+      }
+      console.log("response create user: ", response);
+    } catch (e) {
+      console.log(e);
+    }
+    console.log("check data from child", data);
+  };
   /** Life cycle
     Run component:
  * 1. Run construct -> init state
@@ -49,7 +70,7 @@ class UserManage extends Component {
         <ModalUser
           isOpen={this.state.isOpenModalUser}
           toggleFromParent={this.toggleUserModal}
-          test={"abc"}
+          createNewUser={this.createNewUser}
         />
 
         <div className="title text-center">Manage users</div>

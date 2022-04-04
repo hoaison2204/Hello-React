@@ -39,12 +39,19 @@ class ModalUser extends Component {
         break;
       }
     }
-    return true;
+    return isValid;
   };
 
   handleAddNewUser = () => {
-    this.checkValidateInput();
-    console.log("Data modal: ", this.state);
+    let isValid = this.checkValidateInput();
+    if (isValid === true) {
+      //call API create modal function
+      console.log("check props child: ", this.props);
+      this.props.createNewUser(this.state);
+      console.log("Data modal: ", this.state);
+    } else {
+      console.log("Data modal: failed");
+    }
   };
   render() {
     return (
