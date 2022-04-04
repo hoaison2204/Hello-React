@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { emitter } from "../../utils/emitter";
 
 class ModalUser extends Component {
   constructor(props) {
@@ -13,8 +14,24 @@ class ModalUser extends Component {
       lastName: "",
       address: "",
     };
+    this.listenToEmitter();
   }
-  componentDidMount() {}
+
+  listenToEmitter() {
+    emitter.on("EVENT_CLEAR_MODAL_DATA", () => {
+      this.setState({
+        email: "",
+        password: "",
+        firstName: "",
+        lastName: "",
+        address: "",
+      });
+    });
+  }
+
+  componentDidMount() {
+    console.log("mouting modal");
+  }
 
   toggle = () => {
     this.props.toggleFromParent();
@@ -32,10 +49,8 @@ class ModalUser extends Component {
     let isValid = true;
     let arrInput = ["email", "password", "firstName", "lastName", "address"];
     for (let i = 0; i < arrInput.length; i++) {
-      console.log("Check inside loop: ", this.state[arrInput[i]], ": ", arrInput[i]);
       if (!this.state[arrInput[i]]) {
         isValid = false;
-        alert("Missng parameters: " + arrInput[i]);
         break;
       }
     }
@@ -46,11 +61,8 @@ class ModalUser extends Component {
     let isValid = this.checkValidateInput();
     if (isValid === true) {
       //call API create modal function
-      console.log("check props child: ", this.props);
       this.props.createNewUser(this.state);
-      console.log("Data modal: ", this.state);
     } else {
-      console.log("Data modal: failed");
     }
   };
   render() {
