@@ -1,0 +1,55 @@
+.home-header-container {
+  height: 60px;
+  width: 100%;
+  padding: 0 20px;
+
+  .home-header-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+
+    .left-content {
+      width: 25%;
+      align-items: center;
+      border: 1px solid red;
+      display: flex;
+      .header-logo {
+        background: url("../../assets/logo/Accolade-Healthcare.svg") center center no-repeat;
+        height: 100%;
+        width: 100%;
+      }
+      i {
+        font-size: 25px;
+        color: grey;
+      }
+    }
+    .center-content {
+      width: 50%;
+      display: flex;
+      border: 1px solid yellow;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 70px;
+
+      .child-content {
+        .main-title {
+          font-size: 18px;
+        }
+        .sub-title {
+          font-size: 15px;
+          color: gray;
+        }
+      }
+    }
+    .right-content {
+      width: 25%;
+      border: 1px solid green;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .custom-color {
+        color: rgb(0, 195, 255);
+      }
+    }
+  }
+}
