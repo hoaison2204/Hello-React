@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./HomeHeader.scss";
+import { FormattedMessage } from "react-intl";
+
+import logo from "../../assets/logo/Accolade-Healthcare.svg";
 
 class HomeHeader extends Component {
   render() {
+    console.log("check props: ", this.props);
     return (
       <React.Fragment>
         <div className="home-header-container">
@@ -11,14 +15,16 @@ class HomeHeader extends Component {
             {/* left header */}
             <div className="left-content">
               <i className="fas fa-bars"></i>
-              <div className="header-logo"></div>
+              <div className="header-logo">
+                <img src={logo} />
+              </div>
             </div>
 
             {/* center header */}
             <div className="center-content">
               <div className="child-content">
                 <div className="main-title">
-                  <b>Chuyên khoa</b>
+                  <b> Chuyên khoa</b>
                 </div>
                 <div className="sub-title">Tìm bác sĩ</div>
               </div>
@@ -45,9 +51,8 @@ class HomeHeader extends Component {
             {/* right header */}
             <div className="right-content">
               <div className="support">
-                <i className="fas fa-question-circle custom-color"></i>Hỗ trợ
+                <i className="fas fa-question-circle "></i>Hỗ trợ
               </div>
-              <div className="flag">VN</div>
             </div>
           </div>
         </div>
@@ -82,28 +87,28 @@ class HomeHeader extends Component {
 
               <div className="option-child">
                 <div className="icon-child">
-                  <i className="fas fa-ambulance"></i>
+                  <i className="fas fa-procedures"></i>
                 </div>
                 <div className="text-child">Khám tổng quát</div>
               </div>
 
               <div className="option-child">
                 <div className="icon-child">
-                  <i className="fas fa-ambulance"></i>
+                  <i className="fas fa-flask"></i>
                 </div>
                 <div className="text-child">Xét nghiệm y học</div>
               </div>
 
               <div className="option-child">
                 <div className="icon-child">
-                  <i className="fas fa-ambulance"></i>
+                  <i className="fas fa-user-md"></i>
                 </div>
                 <div className="text-child">Sức khỏe tinh thần</div>
               </div>
 
               <div className="option-child">
                 <div className="icon-child">
-                  <i className="fas fa-ambulance"></i>
+                  <i className="fas fa-briefcase-medical"></i>
                 </div>
                 <div className="text-child">Khám nha khoa</div>
               </div>
@@ -118,6 +123,7 @@ class HomeHeader extends Component {
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
+    language: state.app.language,
   };
 };
 

@@ -1,7 +1,7 @@
 .home-header-container {
-  height: 60px;
+  height: 100px;
   width: 100%;
-  padding: 0 20px;
+  padding: 0 40px;
 
   .home-header-content {
     width: 100%;
@@ -9,24 +9,26 @@
     display: flex;
 
     .left-content {
-      width: 25%;
+      width: 20%;
       align-items: center;
-      border: 1px solid red;
       display: flex;
+      .fas {
+        margin-left: 130px;
+      }
       .header-logo {
-        background: url("../../assets/logo/Accolade-Healthcare.svg") center center no-repeat;
-        height: 100%;
-        width: 100%;
+        img {
+          width: 57%;
+        }
       }
       i {
         font-size: 25px;
         color: grey;
       }
     }
+
     .center-content {
-      width: 50%;
+      width: 55%;
       display: flex;
-      border: 1px solid yellow;
       justify-content: space-between;
       align-items: center;
       padding: 0 70px;
@@ -41,20 +43,48 @@
         }
       }
     }
+
     .right-content {
       width: 25%;
-      border: 1px solid green;
       display: flex;
       justify-content: center;
       align-items: center;
-      .custom-color {
+
+      // color for icon
+      .fas {
         color: rgb(0, 195, 255);
+      }
+      .support {
+        // padding-right: 80px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        i {
+          font-size: 15px;
+          margin-right: 5px;
+        }
+      }
+
+      .language-vi {
+        cursor: pointer;
+        &.active {
+          color: red;
+        }
+      }
+      .language-en {
+        margin: 0 10px;
+        cursor: pointer;
+        &.active {
+          color: blue;
+        }
       }
     }
   }
 }
 .home-header-banner {
   background: url("../../assets/Background/background2.jpg");
+  // filter: brightness (50%);
   height: 650px;
   background-repeat: no-repeat;
   background-size: cover;
@@ -64,9 +94,11 @@
   //   padding: 15px 0;
 
   .content-up {
-    border: 1px solid red;
-    padding-top: 15px;
-    height: 50%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0.1));
+
+    // border: 1px solid red;
+    padding-top: 160px;
+    height: 65%;
     .title1 {
       text-align: center;
       font-size: 30px;
@@ -105,16 +137,25 @@
   }
 
   .content-down {
-    border: 1px solid green;
-    height: 50%;
+    // border: 1px solid green;
+    height: 35%;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    background-image: linear-gradient(
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 1)
+    );
     .options {
       text-align: center;
       display: flex;
-      gap: 50px;
+      gap: 100px;
       justify-content: center;
 
       .option-child {
-        border: 1px solid pink;
+        // border: 1px solid pink;
         width: 100px;
         .icon-child {
           background: white;
@@ -126,7 +167,7 @@
           margin: 0 auto;
 
           i {
-            color: aqua;
+            color: blueviolet;
             font-size: 20px;
           }
         }
