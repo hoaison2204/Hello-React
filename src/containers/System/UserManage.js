@@ -23,6 +23,8 @@ class UserManage extends Component {
       userEdit: {},
     };
   }
+
+  
   async componentDidMount() {
     await this.getAllUsersFromReact();
   }

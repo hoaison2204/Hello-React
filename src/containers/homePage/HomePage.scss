@@ -1,0 +1,123 @@
+.slick-prev {
+  left      : -10px !important;
+  z-index   : 1000 !important;
+  height    : 48px !important;
+  width     : 44px !important;
+  background: rgb(51, 190, 255) !important;
+
+  &:hover {
+    background: rgb(130, 230, 255) !important;
+  }
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-family: FontAwesome !important;
+  color      : white !important;
+}
+
+.slick-next {
+  right     : -10px !important;
+  z-index   : 1000 !important;
+  height    : 48px !important;
+  width     : 44px !important;
+  background: rgb(51, 190, 255) !important;
+
+  &:hover {
+    background: rgb(130, 230, 255) !important;
+  }
+}
+
+.specialty-share {
+  &.section-specialty {
+    background: #fff;
+  }
+
+  &.section-outstanding-doctor {
+    background: rgb(255, 255, 255);
+
+  }
+
+  .section-body {
+    .section-customize {
+      .bg-image {
+        width              : 278px;
+        height             : 150px;
+        // background: url("../../assets/images/specialty/specialty.jpg");
+        background-position: center center;
+        background-repeat  : no-repeat;
+        background-size    : cover;
+        background-color   : #eee;
+
+        &.section-specialty {
+          background-image: url("../../assets/images/specialty/specialty.jpg");
+        }
+
+        &.section-medical-facility {
+          background-image: url("../../assets/images/medicalFacility/BVTC-resize.jpg");
+        }
+
+        &.section-outstanding-doctor {
+          background-image: url("../../assets/images/outstanding-doctor/outstanding-doctor.jpg");
+          width           : 200px;
+          height          : 160px;
+        }
+      }
+    }
+  }
+}
+
+.specialty-share {
+  height: 330px;
+
+  .section-container {
+    margin        : 0 160px;
+    display       : flex;
+    flex-direction: column;
+
+    .section-header {
+      height       : 60px;
+      margin-bottom: 30px;
+      padding-top  : 30px;
+
+      .title-section {
+        font-size  : 30px;
+        font-weight: 600;
+      }
+
+      .btn-section {
+        float         : right;
+        padding       : 10px 15px;
+        border        : none;
+        outline       : none;
+        display       : block;
+        background    : #ebebeb;
+        cursor        : pointer;
+        color         : black;
+        text-transform: uppercase;
+
+        &:hover {
+          color     : #fff;
+          background: #00c3ff;
+        }
+      }
+    }
+  }
+}
+
+.section-outstanding-doctor {
+  .outer-bg {
+    display        : flex;
+    justify-content: center;
+    margin-bottom  : 10px;
+  }
+
+  .section-customize {
+    padding: 5px;
+
+    .customize-border {
+      border : 1px solid orange;
+      padding: 20px;
+    }
+  }
+}
