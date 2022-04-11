@@ -1,17 +1,10 @@
 import React, { Component } from "react";
-import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./UserManage.scss";
-import {
-  getAllUsers,
-  createNewUserService,
-  deleteUserService,
-  editUserService,
-} from "../../services/userService";
+import { getAllUsers, createNewUserService, deleteUserService, editUserService } from "../../services/userService";
 import ModalUser from "./ModalUser";
 import { emitter } from "../../utils/emitter";
 import ModalEditUser from "./ModalEditUser";
-import { reject } from "lodash";
 
 class UserManage extends Component {
   constructor(props) {
@@ -24,7 +17,7 @@ class UserManage extends Component {
     };
   }
 
-  
+
   async componentDidMount() {
     await this.getAllUsersFromReact();
   }
@@ -123,7 +116,7 @@ class UserManage extends Component {
   render() {
     let arrUsers = this.state.arrUsers;
     return (
-      <div className="user-container">
+      <div className="modal-user-container">
         <ModalUser
           isOpen={this.state.isOpenModalUser}
           toggleFromParent={this.toggleUserModal}
@@ -177,6 +170,8 @@ class UserManage extends Component {
                 })}
             </tbody>
           </table>
+
+          {/* focus on button  */}
         </div>
       </div>
     );
