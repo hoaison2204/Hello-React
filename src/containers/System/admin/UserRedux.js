@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import { getAllCodeService } from '../../../services/userService'
+import './UserRedux.scss';
+import * as actions from '../../../store/actions'
+import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css'; // This only needs to be imported once in your app
+
+
 class UserRedux extends Component {
 
     constructor(props) {
@@ -9,53 +13,75 @@ class UserRedux extends Component {
         this.state = {
             genderArr: [],
             positionArr: [],
-            roleId: []
+            roleArr: [],
+            previewImgURL: '',
+            isOpen: false
         }
     }
 
     async componentDidMount() {
-        try {
-            let res = await getAllCodeService('gender')
-            if (res && res.errCode === 0) {
-                this.setState({
-                    genderArr: res.data,
-                })
-            }
-            let resPosition = await getAllCodeService('position')
-            if (resPosition && resPosition.errCode === 0) {
-                this.setState({
-                    positionArr: resPosition.data,
-                })
-            }
-            let resRole = await getAllCodeService('role')
-            if (resRole && resRole.errCode === 0) {
-                this.setState({
-                    roleId: resRole.data
-                })
-            }
+        this.props.getGenderStart();
+        this.props.getPositionStart();
+        this.props.getRoleStart();
+    }
 
-        } catch (e) {
-            console.log(e);
+    handleOnChangeImage = (event) => {
+        let data = event.target.files;
+        let file = data[0];
+        if (file) {
+            let objectUrl = URL.createObjectURL(file);
+            this.setState({
+                previewImgURL: objectUrl
+            })
         }
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        //gender
+        if (prevProps.genderRedux !== this.props.genderRedux) {
+            this.setState({
+                genderArr: this.props.genderRedux
+            })
+        }
+        //position
+        if (prevProps.positionRedux !== this.props.positionRedux) {
+            this.setState({
+                positionArr: this.props.positionRedux
+            })
+        }
+        //role
+        if (prevProps.roleRedux !== this.props.roleRedux) {
+            this.setState({
+                roleArr: this.props.roleRedux
+            })
+        }
+    }
+
+    openImagePreview = () => {
+        if (!this.state.previewImgURL) return;
+        this.setState({
+            isOpen: true,
+        })
+    }
 
     render() {
-        console.log('check state: ', this.state)
         let genders = this.state.genderArr;
-        let roleIds = this.state.roleId;
+        let roleIds = this.state.roleArr;
         let position = this.state.positionArr;
+
+        // let isGetGenders = this.props.isLoadingGender
+        console.log('check state form redux: ', this.state)
 
         return (
             <div className="user-redux-container">
                 <div className="title">
                     User Redux
                 </div>
-
                 <div className="user-redux-body">
                     <div lassName="container">
                         <div className="row">
-                            <div className="col-12">Add new user</div>
+                            <div className="col-12 my-3">Add new user</div>
+                            {/* <div className="col-12">{isGetGenders === true ? 'loading genders' : 'abc'}</div> */}
                             <div className="col-3">
                                 <label>First name</label>
                                 <input className="form-control" type="text" />
@@ -121,7 +147,15 @@ class UserRedux extends Component {
 
                             <div className="col-3">
                                 <label>Image</label>
-                                <input className="form-control" type="text" />
+                                <div className="preview-img-container">
+                                    <input id="previewImg" type="file" hidden
+                                        onChange={(event) => this.handleOnChangeImage(event)} />
+                                    <label className="label-upload" htmlFor="previewImg">Upload <i className="fas fa-upload"></i></label>
+                                    <div className="preview-image"
+                                        style={{ backgroundImage: `url(${this.state.previewImgURL})` }}
+                                        onClick={() => this.openImagePreview()}>
+                                    </div>
+                                </div>
                             </div>
 
                             <div className="col-12">
@@ -129,7 +163,14 @@ class UserRedux extends Component {
                             </div>
                         </div>
                     </div>
+
                 </div>
+                {this.state.isOpen === true &&
+                    <Lightbox
+                        mainSrc={this.state.previewImgURL}
+                        onCloseRequest={() => this.setState({ isOpen: false })}
+                    />
+                }
             </div>
         )
     }
@@ -138,11 +179,19 @@ class UserRedux extends Component {
 
 const mapStateToProps = state => {
     return {
+        genderRedux: state.admin.genders,
+        positionRedux: state.admin.positions,
+        roleRedux: state.admin.roles,
+        isLoadingGender: state.admin.isLoadingGender
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        getGenderStart: () => dispatch(actions.fetchGenderStart()),
+        getPositionStart: () => dispatch(actions.fetchPositionStart()),
+        getRoleStart: () => dispatch(actions.fetchRoleStart())
+
     };
 };
 
