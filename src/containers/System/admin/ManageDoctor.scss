@@ -1,0 +1,23 @@
+.manage-doctor-container {
+    padding      : 10px;
+    padding-right: 5%;
+    padding-left : 5%;
+
+    .manage-doctor-title {
+        padding-bottom: 1%;
+    }
+
+    .more-info {
+        display       : flex;
+        gap           : 15px;
+        padding-bottom: 2%;
+
+        .content-left {
+            width: 20%;
+        }
+
+        .content-right {
+            width: 80%;
+        }
+    }
+}
