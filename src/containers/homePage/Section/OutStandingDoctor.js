@@ -25,7 +25,6 @@ class OutStandingDoctor extends Component {
   }
   render() {
     let arrDoctors = this.state.arrDoctors;
-    arrDoctors = arrDoctors.concat(arrDoctors).concat(arrDoctors).concat(arrDoctors).concat(arrDoctors)
     return (
       <div className="specialty-share section-outstanding-doctor">
         <div className="section-container">

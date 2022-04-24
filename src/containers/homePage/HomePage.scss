@@ -28,6 +28,10 @@
   }
 }
 
+.slick-disabled {
+  display: none !important;
+}
+
 .specialty-share {
   &.section-specialty {
     background: #fff;
@@ -59,8 +63,8 @@
 
         &.section-outstanding-doctor {
           // background-image: url("../../assets/images/outstanding-doctor/outstanding-doctor.jpg");
-          width           : 200px;
-          height          : 160px;
+          width : 200px;
+          height: 160px;
         }
       }
     }
