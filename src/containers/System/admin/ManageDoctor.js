@@ -7,7 +7,10 @@ import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import "./ManageDoctor.scss";
 import Select from 'react-select';
-import { languages } from '../../../utils'
+import { languages } from '../../../utils';
+import { getDetailInfoDoctor } from '../../../services/userService'
+import { CRUD_ACTIONS } from "../../../utils"
+
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 class ManageDoctor extends Component {
     constructor(props) {
@@ -17,7 +20,8 @@ class ManageDoctor extends Component {
             contentHTML: '',
             selectedOption: '',
             description: '',
-            listDoctors: []
+            listDoctors: [],
+            hasOldData: false
         };
     }
     componentDidMount() {
@@ -55,16 +59,36 @@ class ManageDoctor extends Component {
     }
 
     handleSaveContentMarkdown = () => {
+        let { hasOldData } = this.state
         this.props.saveDetailDoctor({
             doctorId: this.state.selectedOption.value,
             contentHTML: this.state.contentHTML,
             contentMarkdown: this.state.contentMarkdown,
             description: this.state.description,
+            action: hasOldData === true ? CRUD_ACTIONS.EDIT : CRUD_ACTIONS.CREATE
         })
     }
 
-    handleChange = (selectedOption) => {
+    handleChangeSelect = async (selectedOption) => {
         this.setState({ selectedOption });
+        let res = await getDetailInfoDoctor(selectedOption.value);
+        if (res && res.errCode === 0 && res.data && res.data.Markdown) {
+            let markdown = res.data.Markdown;
+            this.setState({
+                contentHTML: markdown.contentHTML,
+                contentMarkdown: markdown.contentMarkdown,
+                description: markdown.description,
+                hasOldData: true
+            })
+        } else {
+            this.setState({
+                contentHTML: '',
+                contentMarkdown: '',
+                description: '',
+                hasOldData: false
+            })
+        }
+        console.log('check res: ', res)
     };
 
     handleOnChangeDescription = (event) => {
@@ -73,6 +97,7 @@ class ManageDoctor extends Component {
         })
     }
     render() {
+        let { hasOldData } = this.state;
         return (
             <div className="manage-doctor-container">
                 <div className="title manage-doctor-title">
@@ -85,7 +110,7 @@ class ManageDoctor extends Component {
                         <label htmlFor="">Choose the doctor</label>
                         <Select
                             value={this.state.selectedOption}
-                            onChange={this.handleChange}
+                            onChange={this.handleChangeSelect}
                             options={this.state.listDoctors}
                         />
                     </div>
@@ -102,14 +127,15 @@ class ManageDoctor extends Component {
                 <div className="manage-doctor-editor">
                     <MdEditor style={{ height: '500px' }}
                         renderHTML={text => mdParser.render(text)}
-                        onChange={this.handleEditorChange} />
+                        onChange={this.handleEditorChange}
+                        value={this.state.contentMarkdown} />
                 </div>
 
                 <div className="col-12 my-3">
                     <button
                         onClick={() => this.handleSaveContentMarkdown()}
-                        className="btn btn-primary">
-                        Save</button>
+                        className={hasOldData === true ? "btn btn-warning" : "btn btn-primary"}>
+                        {hasOldData === true ? <span>Save</span> : <span>Save change</span>}</button>
                 </div>
             </div>
         )

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './UserRedux.scss';
-import { CRUD_ACTION, CommonUtils } from "../../../utils"
+import { CRUD_ACTIONS, CommonUtils } from "../../../utils"
 import * as actions from '../../../store/actions'
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css'; // This only needs to be imported once in your app
@@ -97,7 +97,7 @@ class UserRedux extends Component {
                 position: arrPositions && arrPositions.length > 0 ? arrPositions[0].keyMap : '',
                 role: arrRoles && arrRoles.length > 0 ? arrRoles[0].keyMap : '',
                 avatar: '',
-                action: CRUD_ACTION.CREATE,
+                action: CRUD_ACTIONS.CREATE,
                 previewImgURL: ''
             })
         }
@@ -128,7 +128,7 @@ class UserRedux extends Component {
         if (isValid === false) return;
 
         let { action } = this.state;
-        if (action === CRUD_ACTION.CREATE) {
+        if (action === CRUD_ACTIONS.CREATE) {
 
             this.props.createNewUser({
                 email: this.state.email,
@@ -143,7 +143,7 @@ class UserRedux extends Component {
                 avatar: this.state.avatar
             })
         }
-        if (action === CRUD_ACTION.EDIT) {
+        if (action === CRUD_ACTIONS.EDIT) {
             this.props.editUserRedux({
                 id: this.state.userEditId,
                 email: this.state.email,
@@ -193,7 +193,7 @@ class UserRedux extends Component {
             avatar: '',
             previewImgURL: imageBase64,
             userEditId: user.id,
-            action: CRUD_ACTION.EDIT
+            action: CRUD_ACTIONS.EDIT
         })
     }
     render() {
@@ -233,7 +233,7 @@ class UserRedux extends Component {
                                 <input className="form-control" type="email"
                                     value={email}
                                     onChange={(event) => { this.onChangeInput(event, 'email') }}
-                                    disabled={this.state.action === CRUD_ACTION.EDIT ? true : false} />
+                                    disabled={this.state.action === CRUD_ACTIONS.EDIT ? true : false} />
                             </div>
                             {/* password */}
                             <div className="col-3">
@@ -241,7 +241,7 @@ class UserRedux extends Component {
                                 <input className="form-control" type="Password"
                                     value={password}
                                     onChange={(event) => { this.onChangeInput(event, 'password') }}
-                                    disabled={this.state.action === CRUD_ACTION.EDIT ? true : false} />
+                                    disabled={this.state.action === CRUD_ACTIONS.EDIT ? true : false} />
                             </div>
                             {/* phone number */}
                             <div className="col-3">
@@ -315,8 +315,8 @@ class UserRedux extends Component {
                             </div>
                             {/* save button */}
                             <div className="col-12 my-3">
-                                <button className={this.state.action === CRUD_ACTION.EDIT ? "btn btn-warning" : "btn btn-primary"}
-                                    onClick={() => this.handleSaveUser()}>{this.state.action === CRUD_ACTION.EDIT ? "Save change" : "Save"}</button>
+                                <button className={this.state.action === CRUD_ACTIONS.EDIT ? "btn btn-warning" : "btn btn-primary"}
+                                    onClick={() => this.handleSaveUser()}>{this.state.action === CRUD_ACTIONS.EDIT ? "Save change" : "Save"}</button>
                             </div>
                             {/* table manage user*/}
                             <div className="col-12 mb-5">

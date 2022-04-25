@@ -11,9 +11,9 @@ export const languages = {
     VI: 'vi',
     EN: 'en'
 };
- 
-export const CRUD_ACTION = {
-    CREATE: "ADD",
+
+export const CRUD_ACTIONS = {
+    CREATE: "CREATE",
     EDIT: "EDIT",
     DELETE: "DELETE",
     READ: "READ",
