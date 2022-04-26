@@ -22,6 +22,10 @@
             "manage-clinic": "Quản lý phòng khám",
             "specialty": "Chuyên khoa",
             "manage-specialty": "Quản lý chuyên khoa"
+        },
+        
+        "doctor": {
+            "manage-schedule": "Manage doctor's schedule"
         }
     }
 }
