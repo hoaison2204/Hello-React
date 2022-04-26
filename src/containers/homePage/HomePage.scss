@@ -122,14 +122,15 @@
     .customize-border {
       border : 1px solid orange;
       padding: 20px;
+      cursor : pointer;
     }
   }
 }
 
 .home-footer {
-  height     : 150px;
-  text-align : center;
-  padding-top: 60px;
+  height        : 150px;
+  text-align    : center;
+  padding-top   : 60px;
   // background : #00c3ff;
 
   a {
