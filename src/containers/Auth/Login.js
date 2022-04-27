@@ -19,13 +19,13 @@ class Login extends Component {
     };
   }
 
-  handleonChangeUserName = (event) => {
+  handleOnChangeUserName = (event) => {
     this.setState({
       username: event.target.value,
     });
   };
 
-  handleonChangeUserPassword = (event) => {
+  handleOnChangeUserPassword = (event) => {
     this.setState({
       password: event.target.value,
     });
@@ -60,6 +60,13 @@ class Login extends Component {
       isShowPassword: !this.state.isShowPassword,
     });
   };
+
+  handleOnKeyDown = (event) => {
+    console.log('check keydown: ', event);
+    if (event.key === "Enter" || event.keycode === 13) {
+      this.handleLogin()
+    }
+  }
   render() {
     //jsx
     return (
@@ -73,7 +80,7 @@ class Login extends Component {
                 type="text"
                 className="form-control"
                 placeholder="Enter your username"
-                onChange={(event) => this.handleonChangeUserName(event)}
+                onChange={(event) => this.handleOnChangeUserName(event)}
                 required
               />
             </div>
@@ -84,7 +91,8 @@ class Login extends Component {
                   type={this.state.isShowPassword ? "text" : "password"}
                   className="form-control"
                   placeholder="Enter your password"
-                  onChange={(event) => this.handleonChangeUserPassword(event)}
+                  onChange={(event) => this.handleOnChangeUserPassword(event)}
+                  onKeyDown={(event) => this.handleOnKeyDown(event)}
                   required
                 />
                 <span

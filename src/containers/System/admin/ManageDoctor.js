@@ -27,9 +27,10 @@ class ManageDoctor extends Component {
     componentDidMount() {
         this.props.fetchAllDoctors()
     }
+    
     buildDataInputSelect = (inputData) => {
         let result = [];
-        let { language } = this.props;
+        // let { language } = this.props;
         if (inputData && inputData.length > 0) {
             inputData.map((item, index) => {
                 let object = {};
