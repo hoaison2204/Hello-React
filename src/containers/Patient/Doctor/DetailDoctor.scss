@@ -38,9 +38,10 @@
     }
 
     .schedule-doctor-booking-time {
-        display: flex;
-        height : 200px;
-
+        display     : flex;
+        // height   : 200x;
+        min-height  : 150px;
+        padding     : 10px 0;
         // border: 1px solid red;
 
         .content-left {

@@ -14,22 +14,32 @@ class DoctorSchedule extends Component {
         }
     }
     async componentDidMount() {
-        // console.log('moment vie: ', moment(new Date()).format('dddd - DD/MM'));
-        // console.log('moment en: ', moment(new Date()).locale('en').format('ddd - DD/MM'));
-        this.setArrDays();
-    }
-
-    setArrDays = () => {
-        let allDays = [];
-        for (let i = 0; i < 7; i++) {
-            let object = {};
-            object.label = moment(new Date()).add(i, 'days').locale('en').format('dddd - DD/MM');
-            object.value = moment(new Date()).add(i, 'days').startOf('days').valueOf();
-            allDays.push(object);
-        }
+        let allDays = this.getArrDays();
         this.setState({
             allDays: allDays,
         })
+
+        console.log('check all day: ', allDays);
+    }
+
+    getArrDays = () => {
+        let allDays = [];
+        for (let i = 0; i < 7; i++) {
+            let object = {};
+            if (i === 0) {
+                let ddMM = moment(new Date()).format('DD/MM')
+                let today = `Today - ${ddMM}`;
+                object.label = today;
+            } else {
+                object.label = moment(new Date()).add(i, 'days').locale('en').format('dddd - DD/MM');
+            }
+
+
+
+            object.value = moment(new Date()).add(i, 'days').startOf('days').valueOf();
+            allDays.push(object);
+        }
+        return allDays;
     }
 
     handleOnchangeSelect = async (event) => {
@@ -52,8 +62,14 @@ class DoctorSchedule extends Component {
             console.log('check res schedule from react: ', res)
         }
     }
-    componentDidUpdate(prevProps, prevState, snapshot) {
-
+    async componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.doctorIdFromParent !== prevProps.doctorIdFromParent) {
+            let allDays = this.getArrDays();
+            let res = await getScheduleDoctorByDate(this.props.doctorIdFromParent, allDays[0].value);
+            this.setState({
+                allAvailableTimes: res.data ? res.data : []
+            })
+        }
     }
     render() {
         let { allDays, allAvailableTimes } = this.state;
@@ -79,12 +95,21 @@ class DoctorSchedule extends Component {
                     <div className="time-content">
                         {allAvailableTimes
                             && allAvailableTimes.length > 0
-                            ? allAvailableTimes.map((item, index) => {
-                                let timeDisplay = item.timeTypeData.valueEn
-                                return (
-                                    <button key={index}>{timeDisplay}</button>
-                                )
-                            })
+                            ?
+                            <>
+                                <div className="time-content-btn">
+                                    {allAvailableTimes.map((item, index) => {
+                                        let timeDisplay = item.timeTypeData.valueEn
+                                        return (
+                                            <button key={index}>{timeDisplay}</button>
+                                        )
+                                    })
+                                    }
+                                </div>
+                                <div className="book-free">
+                                    <span>Choose and book now! <i className="fas fa-hand-point-up"></i></span>
+                                </div>
+                            </>
                             : <div>
                                 No appointments during this time!
                             </div>

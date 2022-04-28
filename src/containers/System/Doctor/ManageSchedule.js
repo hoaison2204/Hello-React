@@ -123,11 +123,17 @@ class ManageSchedule extends Component {
             formattedDate: formattedDate,
         });
 
-        console.log("check result: ", result)
-        console.log("check saveBulkScheduleDoctor result: ", res)
+        if (res && res.errCode === 0) {
+            toast.success('Save successfully!');
+
+        } else {
+            toast.error('Error save schedule!');
+            console.log('save bulk schedule: ', res);
+        }
     }
     render() {
         let { rangeTime } = this.state;
+        let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
         console.log('check state: ', rangeTime);
 
         return (
@@ -151,7 +157,7 @@ class ManageSchedule extends Component {
                                 onChange={this.handleOnchangePicker}
                                 className="form-control"
                                 value={this.state.currentDate}
-                                minDate={new Date()}
+                                minDate={yesterday}
                             />
                         </div>
 

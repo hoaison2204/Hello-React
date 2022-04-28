@@ -33,23 +33,27 @@
         }
 
         .time-content {
-            display  : flex;
-            gap      : 15px;
-            flex-wrap: wrap;
 
-            button {
-                padding         : 8px 10px;
-                border          : none;
-                outline         : none;
-                background-color: #fff04b;
-                min-width       : 160px;
-                border-radius   : 3px;
-                font-weight     : 600;
-                color           : #333;
 
-                &:hover {
-                    background-color: aqua;
-                    color           : white;
+            .time-content-btn {
+                display  : flex;
+                gap      : 15px;
+                flex-wrap: wrap;
+
+                button {
+                    padding         : 8px 10px;
+                    border          : none;
+                    outline         : none;
+                    background-color: #fff04b;
+                    min-width       : 160px;
+                    border-radius   : 3px;
+                    font-weight     : 600;
+                    color           : #333;
+
+                    &:hover {
+                        background-color: aqua;
+                        color           : white;
+                    }
                 }
             }
         }
