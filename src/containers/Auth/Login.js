@@ -15,7 +15,7 @@ class Login extends Component {
       username: "",
       password: "",
       isShowPassword: false,
-      errMessaage: "",
+      errMessage: "",
     };
   }
 
@@ -67,7 +67,7 @@ class Login extends Component {
       this.handleLogin()
     }
   }
-  
+
   render() {
     //jsx
     return (
@@ -122,16 +122,6 @@ class Login extends Component {
                 }}>
                 Login
               </button>
-            </div>
-            <div className="col-12 forgot-password">
-              <span>Forgot your password?</span>
-            </div>
-            <div className="col-12 text-center mt-3">
-              <span className="text-other-login">Or login with</span>
-            </div>
-            <div className="col-12 social-login">
-              <i className="fab fa-google google"></i>
-              <i className="fab fa-facebook facebook"></i>
             </div>
           </div>
         </div>

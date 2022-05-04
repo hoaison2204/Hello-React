@@ -1,27 +1,27 @@
 .login-background {
-  height: 100vh;
-  background: url(../../assets/Background/background.jpg);
+  height         : 100vh;
+  background     : url(../../assets/Background/background.jpg);
   background-size: cover;
 
   .login-container {
-    width: 400px;
-    border-radius: 50px;
+    width           : 400px;
+    border-radius   : 50px;
     background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
-    position: absolute;
-    margin: auto;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    height: 500px;
+    position        : absolute;
+    margin          : auto;
+    top             : 0;
+    bottom          : 0;
+    right           : 0;
+    left            : 0;
+    height          : 320px;
 
     .login-content {
       padding: 10px;
 
       .text-login {
-        text-align: center;
+        text-align : center;
         font-weight: 600;
-        font-size: 24px;
+        font-size  : 24px;
         padding-top: 10px;
       }
 
@@ -30,33 +30,35 @@
 
         .custom-input-password {
           position: relative;
+
           i {
             position: absolute;
-            right: 10px;
-            top: 10px;
-            cursor: pointer;
+            right   : 10px;
+            top     : 10px;
+            cursor  : pointer;
           }
         }
       }
 
       .btn-login {
-        width: 100%;
-        margin: 10px 0;
-        height: 30px;
-        border-radius: 50px;
-        outline: none;
-        border: none;
+        width              : 100%;
+        margin             : 10px 0;
+        height             : 30px;
+        border-radius      : 50px;
+        outline            : none;
+        border             : none;
         // background-image: linear-gradient(to right, #00dbde 0%, #fc00ff 100%);
         // background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
         // background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
         // background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
-        background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
-        color: white;
-        cursor: pointer;
-        background-size: 200%;
-        transition: 0.5s;
-        font-size: 20px;
+        background-image   : linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
+        color              : white;
+        cursor             : pointer;
+        background-size    : 200%;
+        transition         : 0.5s;
+        font-size          : 20px;
       }
+
       .btn-login:hover {
         background-position: right;
       }
@@ -64,36 +66,40 @@
       .text-center {
         font-size: 18px;
       }
+
       .forgot-password {
         font-size: 17px;
       }
+
       .social-login {
-        display: flex;
-        text-align: center;
+        display        : flex;
+        text-align     : center;
         justify-content: center;
-        margin-top: 10px;
+        margin-top     : 10px;
+
         .google {
-          font-size: 30px;
-          background: red;
-          border-radius: 50%;
-          height: 50px;
-          width: 50px;
-          display: flex;
-          align-items: center;
+          font-size      : 30px;
+          background     : red;
+          border-radius  : 50%;
+          height         : 50px;
+          width          : 50px;
+          display        : flex;
+          align-items    : center;
           justify-content: center;
-          color: white;
-          margin-right: 10px;
+          color          : white;
+          margin-right   : 10px;
         }
+
         .facebook {
-          font-size: 55px;
+          font-size      : 55px;
           //   background: white;
-          border-radius: 50%;
-          height: 50px;
-          width: 50px;
-          display: flex;
-          align-items: center;
+          border-radius  : 50%;
+          height         : 50px;
+          width          : 50px;
+          display        : flex;
+          align-items    : center;
           justify-content: center;
-          color: #139cf8;
+          color          : #139cf8;
         }
       }
     }
