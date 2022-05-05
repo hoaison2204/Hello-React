@@ -48,6 +48,7 @@ class ManageSchedule extends Component {
 
         }
     }
+    
     buildDataInputSelect = (inputData) => {
         let result = [];
         // let { language } = this.props;

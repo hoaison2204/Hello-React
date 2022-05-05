@@ -1,20 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import './DoctorExtraInfo.scss';
-import { getScheduleDoctorByDate } from '../../../services/userService'
+import { getDoctorInfoExtraById } from '../../../services/userService'
 class DoctorExtraInfo extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             isShowDetailsInfo: false,
+            extraInfo: {},
         }
     }
     async componentDidMount() {
+
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-
+        if (this.props.doctorIdFromParent !== prevProps.doctorIdFromParent) {
+            let res = await getDoctorInfoExtraById(this.props.doctorIdFromParent);
+            if (res && res.errCode === 0) {
+                this.setState({
+                    extraInfo: res.data
+                })
+            }
+            console.log('check get data', res);
+        }
     }
 
     showHideDetailInfo = (status) => {
@@ -23,49 +33,54 @@ class DoctorExtraInfo extends Component {
         })
     }
     render() {
-        let { isShowDetailsInfo } = this.state;
+        let { isShowDetailsInfo, extraInfo } = this.state;
         return (
             <div className="doctor-extra-info-container">
                 <div className="content-up">
-                    <div className="text-address">address</div>
-                    <div className="name-clinic">phong kham chuyen khoan</div>
-                    <div className="detail-address">207 pho hue</div>
+                    <div className="text-address">ADDRESS OF EXAMINATION</div>
+                    <div className="name-clinic">
+                        {extraInfo && extraInfo.nameClinic ? extraInfo.nameClinic : ''}
+                    </div>
+                    <div className="detail-address">
+                        {extraInfo && extraInfo.addressClinic ? extraInfo.addressClinic : ''}
+
+                    </div>
                 </div>
                 <div className="content-down">
                     {isShowDetailsInfo === false &&
                         <div className="short-info">
-                            gia kham: 250k .
+                            Examination price: {extraInfo && extraInfo.priceTypeData ? extraInfo.priceTypeData.valueEn : ''}$.
                             <span onClick={() => { this.showHideDetailInfo(true) }}>
-                                see detail
+                                See detailS
                             </span>
                         </div>
                     }
-
                     {isShowDetailsInfo === true &&
                         <>
-                            <div className="title-price">gia kham</div>
-
                             <div className="detail-info">
                                 <div className="price">
-                                    <div className="left">gia kham</div>
-                                    <div className="right">250k</div>
+                                    <div className="left">Detail information</div>
+                                    <div className="right">
+                                        Examination price: {extraInfo && extraInfo.priceTypeData ? extraInfo.priceTypeData.valueEn : ''}$.
+                                    </div>
                                 </div>
                                 <div className="note">
-                                    duoc uu tien kham truoc khi dat qua HealthCare
+                                    {extraInfo && extraInfo.note ? extraInfo.note : ''}
                                 </div>
                             </div>
 
-                            <div className="payment">nguoi benh co the thanh toan chi phi bang hinh thuc tien mat hoac quen the
+                            <div className="payment">
+                                Payments: {extraInfo && extraInfo.paymentTypeData ? extraInfo.paymentTypeData.valueEn : ''}
+
                             </div>
 
                             <div className="hide-price">
                                 <span onClick={() => { this.showHideDetailInfo(false) }}>
-                                    Hide
+                                    Hide details
                                 </span>
                             </div>
                         </>
                     }
-
                 </div>
             </div>
         );

@@ -3,9 +3,10 @@
     height: 500px;
 
     .intro-doctor {
+        border-radius   : 20px;
         display         : flex;
-        background-color: #ccfdff;
-        box-shadow      : 17px 10px 35px #ccfdff;
+        background-color: #e8feff;
+        box-shadow      : 17px 10px 35px #e8feff;
 
         .content-left {
             width        : 20%;
