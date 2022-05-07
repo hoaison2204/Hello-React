@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import './ProfileDoctor.scss';
-import { getProfileDoctorById } from '../../../services/userService'
+import { getProfileDoctorById } from '../../../services/userService';
+import _ from "lodash";
+import moment from "moment";
+
 class ProfileDoctor extends Component {
 
     constructor(props) {
@@ -29,13 +32,31 @@ class ProfileDoctor extends Component {
             // this.getInfoDoctor(this.props.doctorId)
         }
     }
+    renderTimeBooking = (dataTime) => {
+        console.log('check dataTime: ', dataTime);
+        if (dataTime && !_.isEmpty(dataTime)) {
+            //+ convert string to integer
+            // /1000 vi timestamp tinh milisecond nen phai chia 1000 de chuyen ve thanh second
+            let date = moment.unix(+dataTime.date / 1000).locale('en').format('dddd - MM/DD/YYYY');
 
+            let time = dataTime.timeTypeData.valueEn;
+            return (
+                <>
+                    <div>{time} - {date}</div>
+                    <div>Booking for free!</div>
+                </>
+            )
+        }
+        return <></>
+    }
     render() {
         let { dataProfile } = this.state;
+        let { isShowDescriptionDoctor, dataTime } = this.props
         let name = '';
         if (dataProfile && dataProfile.positionData) {
             name = `${dataProfile.positionData.valueEn} - ${dataProfile.lastName} ${dataProfile.firstName}`;
         }
+        console.log('check data dataTime: ', dataTime);
         return (
             <div className="profile-doctor-container">
                 <div className="intro-doctor">
@@ -48,13 +69,20 @@ class ProfileDoctor extends Component {
                             {name}
                         </div>
                         <div className="down">
-                            {
-                                dataProfile
-                                && dataProfile.Markdown
-                                && dataProfile.Markdown.description
-                                && <span>
-                                    {dataProfile.Markdown.description}
-                                </span>
+                            {isShowDescriptionDoctor === true ?
+                                <>
+                                    {dataProfile
+                                        && dataProfile.Markdown
+                                        && dataProfile.Markdown.description
+                                        && <span>
+                                            {dataProfile.Markdown.description}
+                                        </span>
+                                    }
+                                </>
+                                :
+                                <>
+                                    {this.renderTimeBooking(dataTime)}
+                                </>
                             }
                         </div>
                     </div>
