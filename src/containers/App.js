@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import { userIsAuthenticated, userIsNotAuthenticated } from "../hoc/authentication";
 import { path } from "../utils";
 import { CustomToastCloseButton } from "../components/CustomToast";
+import VerifyEmail from './Patient/VerifyEmail'
 
 import homePage from "./homePage/HomePage.js";
 import Home from "../routes/Home";
@@ -48,6 +49,7 @@ class App extends Component {
                   <Route path={'/doctor'} component={userIsAuthenticated(Doctor)} />
                   <Route path={path.HOMEPAGE} component={homePage} />
                   <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
+                  <Route path={path.VERIFY_EMAIL_BOOKING} component={VerifyEmail} />
                 </Switch>
               </CustomScrollbars>
             </div>
