@@ -9,6 +9,7 @@ import * as actions from '../../../../store/actions';
 import Select from 'react-select';
 import { postPatientAppointment } from '../../../../services/userService';
 import { toast } from 'react-toastify';
+import moment from "moment";
 class BookingModal extends Component {
 
     constructor(props) {
@@ -86,6 +87,8 @@ class BookingModal extends Component {
         //validate input
         // !data.email || !data.doctorId || !data.timeType || !data.date
         let date = new Date(this.state.birthday).getTime();
+        let timeString = this.buildTimeBooking(this.props.dataTime);
+        let doctorName = this.buildDoctorName(this.props.dataTime);
         let res = await postPatientAppointment({
             fullName: this.state.fullName,
             phoneNumber: this.state.phoneNumber,
@@ -97,6 +100,8 @@ class BookingModal extends Component {
             selectedGender: this.state.selectedGender.value,
             doctorId: this.state.doctorId,
             timeType: this.state.timeType,
+            timeString: timeString,
+            doctorName: doctorName
         })
 
         if (res && res.errCode === 0) {
@@ -106,6 +111,28 @@ class BookingModal extends Component {
             toast.error('Booking a new appointment failed!')
         }
         console.log('confirm button:, ', this.state)
+    }
+
+    buildTimeBooking = (dataTime) => {
+        console.log('check dataTime: ', dataTime);
+        if (dataTime && !_.isEmpty(dataTime)) {
+            //+ convert string to integer
+            // /1000 vi timestamp tinh milisecond nen phai chia 1000 de chuyen ve thanh second
+            let date = moment.unix(+dataTime.date / 1000).locale('en').format('dddd - MM/DD/YYYY');
+
+            let time = dataTime.timeTypeData.valueEn;
+            return `${time} - ${date}`
+        }
+        return ''
+    }
+
+
+    buildDoctorName = (dataTime) => {
+        if (dataTime && !_.isEmpty(dataTime)) {
+            let name = `${dataTime.doctorData.lastName} ${dataTime.doctorData.firstName}`
+            return name;
+        }
+        return ''
     }
     render() {
         let { isOpenModal, closeBookingModal, dataTime } = this.props;
