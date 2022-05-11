@@ -1,28 +1,58 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import './ManagePatient.scss';
-import DatePicker from '../../../components/Input/DatePicker'
+import DatePicker from '../../../components/Input/DatePicker';
+import { getAllPatientForDoctor } from '../../../services/userService';
+import moment from 'moment';
+
 class ManagePatient extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            currentDate: new Date()
+            currentDate: moment(new Date()).startOf('days').valueOf(),
+            dataPatient: []
         }
     }
     async componentDidMount() {
+        let { user } = this.props;
+        let { currentDate } = this.state;
+        let formattedDate = new Date(currentDate).getTime();
+        this.getDataPatient(user, formattedDate)
 
     }
+    getDataPatient = async (user, formattedDate) => {
+        let res = await getAllPatientForDoctor({
+            doctorId: user.id,
+            date: formattedDate
+        })
+        if (res && res.errCode === 0) {
+            this.setState({
+                dataPatient: res.data
+            })
 
+        }
+    }
     async componentDidUpdate(prevProps, prevState, snapshot) {
 
     }
     handleOnchangePicker = (date) => {
         this.setState({
             currentDate: date[0]
+        }, () => {
+            let { user } = this.props;
+            let { currentDate } = this.state;
+            let formattedDate = new Date(currentDate).getTime();
+            this.getDataPatient(user, formattedDate)
+
         })
     }
+    handleBtnConfirm = () => {
+
+    }
     render() {
+        console.log('check state', this.state);
+        let { dataPatient } = this.state;
         return (
             <div className="manage-patient-container">
                 <div className="title">
@@ -38,33 +68,36 @@ class ManagePatient extends Component {
                         />
                     </div>
                     <div className="col-12">
-                        <table class="table table-hover">
+                        <table className="table table-hover">
                             <thead>
                                 <tr className="table-success">
-                                    <th scope="col">#</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
+                                    <th scope="col">NO</th>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Address</th>
+                                    <th scope="col">Gender</th>
+                                    <th scope="col">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td colspan="2">Larry the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
+                                {dataPatient && dataPatient.length > 0 ? dataPatient.map((item, index) => {
+                                    return (
+                                        <tr key={index}>
+                                            <th scope="row">{index + 1}</th>
+                                            <td>{item.timeTypeDataPatient.valueEn}</td>
+                                            <td>{item.patientData.firstName}</td>
+                                            <td>{item.patientData.address}</td>
+                                            <td>{item.patientData.genderData.valueEn}</td>
+                                            <td >
+                                                <button className="btn btn-success"
+                                                    onClick={() => this.handleBtnConfirm()}
+                                                >Confirm</button>
+                                            </td>
+                                        </tr>
+                                    )
+                                }) : <div className="title" style={{ color: 'red' }}>No data!</div>
+                                }
+
                             </tbody>
                         </table>
                     </div>
@@ -76,6 +109,7 @@ class ManagePatient extends Component {
 
 const mapStateToProps = state => {
     return {
+        user: state.user.userInfo
     };
 };
 
