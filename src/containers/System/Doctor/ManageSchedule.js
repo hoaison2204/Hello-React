@@ -48,7 +48,7 @@ class ManageSchedule extends Component {
 
         }
     }
-    
+
     buildDataInputSelect = (inputData) => {
         let result = [];
         // let { language } = this.props;
@@ -138,7 +138,7 @@ class ManageSchedule extends Component {
 
         return (
             <div className="manage-schedule-container">
-                <div className="title">Manage Schedule</div>
+                <div className="title">Manage Doctor's Schedule</div>
 
                 <div className="container main-content">
                     <div className="row">

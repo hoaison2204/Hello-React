@@ -23,9 +23,9 @@
             "specialty": "Chuyên khoa",
             "manage-specialty": "Quản lý chuyên khoa"
         },
-        
         "doctor": {
-            "manage-schedule": "Manage doctor's schedule"
+            "manage-schedule": "Manage doctor's schedule",
+            "manage-patient": "Manage patient's schedule"
         }
     }
 }
