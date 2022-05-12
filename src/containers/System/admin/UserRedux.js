@@ -158,14 +158,7 @@ class UserRedux extends Component {
                 avatar: this.state.avatar,
             })
         }
-
-        //fire redux action
-
-
     }
-
-
-
     onChangeInput = (event, id) => {
         let copyState = { ...this.state }
         copyState[id] = event.target.value;
